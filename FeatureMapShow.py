@@ -3,7 +3,7 @@ import six
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-
+import pyvista as pv
 import time
 import tqdm
 
@@ -164,20 +164,20 @@ class FeatureMapVisualizition:
             roi = self.original_roi_array[:, :, index]
 
         self.ShowColorByROI(background_array, fore_array, roi, color_map=color_map, feature_name=self.feature_name,store_path=store_path, is_show=False)
-
+    
 def main():
-    image_path = r'D:\MyScript\RadiomicsVisualization\RadiomicsFeatureVisualization\data2.nii.gz'
-    roi_path = r'D:\MyScript\RadiomicsVisualization\RadiomicsFeatureVisualization\ROI.nii.gz'
-    feature_map_path = r'D:\MyScript\RadiomicsVisualization\RadiomicsFeatureVisualization\original_glcm_InverseVariance.nrrd'
+    image_path = '/home/kpegouni/Documents/AI-projects/radiomics/data/interim/ICM-DATA/PELVIS/T2WI/volumes/sub-0400554.nii.gz'
+    roi_path = '/home/kpegouni/Documents/AI-projects/radiomics/data/interim/ICM-DATA/PELVIS/T2WI/segmentations/sub-0400554_mask.nii.gz'
+    feature_map_path = '/home/kpegouni/Documents/AI-projects/radiomics/RadiomicsFeatureVisualization/ICM-DATA/FeatureMap/T2WI/sub-0400554/original_glcm_JointEntropy.nrrd'
 
     # feature_map_path = r'C:\Users\zj\Desktop\SHGH\feature_map\feature_map\wavelet-LLH_ngtdm_Strength.nrrd'
     featuremapvisualization = FeatureMapVisualizition()
     featuremapvisualization.LoadData(image_path, roi_path, feature_map_path)
-    store_path = r'D:\MyScript\RadiomicsVisualization\RadiomicsFeatureVisualization'
-    store_figure_path = store_path+'\\' + (os.path.split(feature_map_path)[-1]).split('.')[0]
-    #hsv/jet/gist_rainbow
-    featuremapvisualization.Show(color_map='seismic', store_path=store_figure_path)
-    # featuremapvisualization.ShowTransforedImage(store_figure_path)
+    store_path = '/home/kpegouni/Documents/AI-projects/radiomics/RadiomicsFeatureVisualization/ICM-DATA/FeatureMapVisualization'
+    store_figure_path = store_path + '/' + (os.path.split(feature_map_path)[-1]).split('.')[0]
+    # color_map = 'hsv/jet/gist_rainbow'
+    featuremapvisualization.Show(color_map='jet', store_path=store_figure_path)
+
 
 if __name__ == '__main__':
     main()
